@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReflectorConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ServerName>Hello server!</ServerName>
+  <LoginID>123</LoginID>
+  <Password>123pass</Password>
+  <ReflectorLogFile loggingEnabled="true" filename="logfile.t" />
+  <CallDataLogFile loggingEnabled="false" filename="file" />
+  <WebService enabled="true">
+    <Timeout>100</Timeout>
+    <RetryInterval>100</RetryInterval>
+    <MaxAttempts>100</MaxAttempts>
+    <Url>hello.com</Url>
+  </WebService>
+</ReflectorConfig>
