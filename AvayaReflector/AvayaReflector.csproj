@@ -42,14 +42,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\CallDataLoggingConifg.cs" />
+    <Compile Include="CallScript.cs" />
+    <Compile Include="Configuration\MonitoredDevices.cs" />
     <Compile Include="Configuration\ReflectorConfig.cs" />
-    <Compile Include="Configuration\WebServiceConfig.cs" />
+    <Compile Include="MonitoredDevice.cs" />
     <Compile Include="Reflector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Test.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Project Code\IQSProject\AVWrapper\AvayaTsapiDLL\AvayaTsapiDLL.vcxproj">
+      <Project>{611286b7-ab97-42f4-9f9b-da0378829665}</Project>
+      <Name>AvayaTsapiDLL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ReflectorServiceConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ServerName>AVAYA#CM#CSTA#DDVCAES</ServerName>
+  <LoginID>ddvc</LoginID>
+  <Password>Vocom400!</Password>
+  <ReflectorLogFile loggingEnabled="true" filename="C:\TEMP\AvayaReflector.log" />
+  <CallDataLogFile loggingEnabled="true" filename="C:\TEMP\ReflectorCallData.log" />
+  <WebService enabled="true">
+    <Timeout>100</Timeout>
+    <RetryInterval>100</RetryInterval>
+    <MaxAttempts>100</MaxAttempts>
+    <Url>hello.com</Url>
+  </WebService>
+</ReflectorServiceConfig>

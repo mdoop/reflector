@@ -7,20 +7,48 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvayaReflector", "AvayaRefl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvayaReflectorService", "AvayaReflectorService\AvayaReflectorService.csproj", "{F3A04041-547A-45A9-BEBA-76FCEE9F9AF6}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AvayaTsapiDLL", "..\..\..\Project Code\IQSProject\AVWrapper\AvayaTsapiDLL\AvayaTsapiDLL.vcxproj", "{611286B7-AB97-42F4-9F9B-DA0378829665}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Win32 = Debug|Win32
 		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{E1350AFD-30B5-44E3-8E09-CFB18A03826A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E1350AFD-30B5-44E3-8E09-CFB18A03826A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1350AFD-30B5-44E3-8E09-CFB18A03826A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E1350AFD-30B5-44E3-8E09-CFB18A03826A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E1350AFD-30B5-44E3-8E09-CFB18A03826A}.Debug|Win32.ActiveCfg = Debug|Any CPU
 		{E1350AFD-30B5-44E3-8E09-CFB18A03826A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1350AFD-30B5-44E3-8E09-CFB18A03826A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1350AFD-30B5-44E3-8E09-CFB18A03826A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E1350AFD-30B5-44E3-8E09-CFB18A03826A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E1350AFD-30B5-44E3-8E09-CFB18A03826A}.Release|Win32.ActiveCfg = Release|Any CPU
 		{F3A04041-547A-45A9-BEBA-76FCEE9F9AF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F3A04041-547A-45A9-BEBA-76FCEE9F9AF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3A04041-547A-45A9-BEBA-76FCEE9F9AF6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F3A04041-547A-45A9-BEBA-76FCEE9F9AF6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F3A04041-547A-45A9-BEBA-76FCEE9F9AF6}.Debug|Win32.ActiveCfg = Debug|Any CPU
 		{F3A04041-547A-45A9-BEBA-76FCEE9F9AF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3A04041-547A-45A9-BEBA-76FCEE9F9AF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3A04041-547A-45A9-BEBA-76FCEE9F9AF6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F3A04041-547A-45A9-BEBA-76FCEE9F9AF6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F3A04041-547A-45A9-BEBA-76FCEE9F9AF6}.Release|Win32.ActiveCfg = Release|Any CPU
+		{611286B7-AB97-42F4-9F9B-DA0378829665}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{611286B7-AB97-42F4-9F9B-DA0378829665}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{611286B7-AB97-42F4-9F9B-DA0378829665}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{611286B7-AB97-42F4-9F9B-DA0378829665}.Debug|Win32.ActiveCfg = Debug|Win32
+		{611286B7-AB97-42F4-9F9B-DA0378829665}.Debug|Win32.Build.0 = Debug|Win32
+		{611286B7-AB97-42F4-9F9B-DA0378829665}.Release|Any CPU.ActiveCfg = Release|Win32
+		{611286B7-AB97-42F4-9F9B-DA0378829665}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{611286B7-AB97-42F4-9F9B-DA0378829665}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{611286B7-AB97-42F4-9F9B-DA0378829665}.Release|Win32.ActiveCfg = Release|Win32
+		{611286B7-AB97-42F4-9F9B-DA0378829665}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

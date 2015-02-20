@@ -46,6 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\LoggingConifg.cs" />
+    <Compile Include="Configuration\ReflectorServiceConfig.cs" />
+    <Compile Include="Configuration\ReflectorConfigFactory.cs" />
+    <Compile Include="Configuration\WebServiceConfig.cs" />
+    <Compile Include="LoggingHelper.cs" />
     <Compile Include="ReflectorService.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -59,6 +64,7 @@
     <None Include="App.config" />
     <None Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +72,14 @@
       <Project>{e1350afd-30b5-44e3-8e09-cfb18a03826a}</Project>
       <Name>AvayaReflector</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ServiceSettings.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReflectorConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

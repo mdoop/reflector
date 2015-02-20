@@ -1,14 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ReflectorConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ServerName>Hello server!</ServerName>
-  <LoginID>123</LoginID>
-  <Password>123pass</Password>
-  <ReflectorLogFile loggingEnabled="true" filename="C:\TEMP\AvayaReflectorServiceLogHAHAhAH.log" />
-  <CallDataLogFile loggingEnabled="false" filename="file" />
-  <WebService enabled="true">
-    <Timeout>100</Timeout>
-    <RetryInterval>100</RetryInterval>
-    <MaxAttempts>100</MaxAttempts>
-    <Url>hello.com</Url>
-  </WebService>
+  <CallScript enabled="true" scriptName="testScript123" />
+  <MonitoredDevices loginAgentsOnStartup="true">
+    <MonitoredDevice>
+      <Extension>40000</Extension>
+      <AgentID>2000</AgentID>
+      <AgentPassword>1234</AgentPassword>
+    </MonitoredDevice>
+    <MonitoredDevice>
+      <Extension>1234</Extension>
+      <AgentID>1234</AgentID>
+      <AgentPassword>123</AgentPassword>
+    </MonitoredDevice>
+    <MonitoredDevice>
+      <Extension>1234</Extension>
+      <AgentID>1234</AgentID>
+      <AgentPassword>123</AgentPassword>
+    </MonitoredDevice>
+  </MonitoredDevices>
 </ReflectorConfig>
