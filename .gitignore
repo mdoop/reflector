@@ -27,3 +27,4 @@ obj/
 [Rr]elease*/
 
 *.opensdf
+!lib/*.lib
