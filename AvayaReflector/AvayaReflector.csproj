@@ -31,10 +31,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net">
-      <HintPath>..\..\..\..\..\..\..\dev\log4net\log4net.dll</HintPath>
+      <HintPath>..\lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,21 +44,74 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AvayaConnector.cs" />
+    <Compile Include="AvayaRequests\AgentLoginRequest.cs" />
+    <Compile Include="AvayaRequests\AgentLogoutRequest.cs" />
+    <Compile Include="AvayaRequests\AvayaRequest.cs" />
+    <Compile Include="AvayaRequests\AvayaRequestResult.cs" />
+    <Compile Include="AvayaRequests\CloseStreamRequest.cs" />
+    <Compile Include="AvayaRequests\MonitorExtensionRequest.cs" />
+    <Compile Include="AvayaRequests\OpenStreamRequest.cs" />
+    <Compile Include="AvayaRequests\StopMonitorExtensionRequest.cs" />
+    <Compile Include="CallCommands\AnswerCall.cs" />
+    <Compile Include="CallCommands\CallCommand.cs" />
+    <Compile Include="CallCommands\CallCommandEnum.cs" />
+    <Compile Include="CallCommands\CallInformation\Call.cs" />
+    <Compile Include="CallCommands\CallInformation\CallCommandType.cs" />
+    <Compile Include="CallCommands\CallInformation\CallInfo.cs" />
+    <Compile Include="CallCommands\CallInformation\CallQueue.cs" />
+    <Compile Include="CallCommands\CallInformation\CallScript.cs" />
+    <Compile Include="CallCommands\CallInformation\MonitoredDevice.cs" />
+    <Compile Include="CallCommands\CallInformation\TransferType.cs" />
+    <Compile Include="CallCommands\ConferenceCall.cs" />
+    <Compile Include="CallCommands\DropCall.cs" />
+    <Compile Include="CallCommands\HoldCall.cs" />
+    <Compile Include="CallCommands\MakeCall.cs" />
+    <Compile Include="CallCommands\ResumeCall.cs" />
+    <Compile Include="CallCommands\TransferCall.cs" />
     <Compile Include="CallScript.cs" />
     <Compile Include="Configuration\MonitoredDevices.cs" />
     <Compile Include="Configuration\ReflectorConfig.cs" />
     <Compile Include="MonitoredDevice.cs" />
     <Compile Include="Reflector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\IQSWebService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\IQSWebService\AvayaReflector.IQSWebService.AcceptKeyValueListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IQSWebService\AvayaReflector.IQSWebService.WsResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IQSWebService\VcReflectorWs.disco" />
+    <None Include="Service References\IQSWebService\configuration91.svcinfo" />
+    <None Include="Service References\IQSWebService\configuration.svcinfo" />
+    <None Include="Service References\IQSWebService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Test.xml" />
+    <None Include="Service References\IQSWebService\VcReflectorWs.wsdl" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Project Code\IQSProject\AVWrapper\AvayaTsapiDLL\AvayaTsapiDLL.vcxproj">
+    <ProjectReference Include="..\AvayaTsapiDLL\AvayaTsapiDLL.vcxproj">
       <Project>{611286b7-ab97-42f4-9f9b-da0378829665}</Project>
       <Name>AvayaTsapiDLL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\IQSWebService\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

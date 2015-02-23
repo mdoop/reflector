@@ -23,6 +23,7 @@ namespace AvayaTsapiDLL
 
 	public enum class WorkMode
 	{
+		INVALID = -2,
 		WM_NONE = -1,
 		WM_AUX_WORK = 1,
 		WM_AFTCAL_WK = 2,
@@ -60,13 +61,13 @@ namespace AvayaTsapiDLL
 		~AvayaTsapiWrapper();
 		//Methods
 
-		long OpenAESStreamConnection(String^ l_ctiServerId, String^ l_ctiUserName, String^ l_ctiPassword);
-		bool CloseAESStreamConnection(String^ l_ctiServerId, String^ l_ctiUserName, String^ l_ctiPassword);
-		bool MonitorExtension(String^ l_agentExtension);
-		bool StopMonitorExtension(String^ l_agentExtension);
+		int OpenAESStreamConnection(String^ l_ctiServerId, String^ l_ctiUserName, String^ l_ctiPassword);
+		int CloseAESStreamConnection(String^ l_ctiServerId, String^ l_ctiUserName, String^ l_ctiPassword);
+		int MonitorExtension(String^ l_agentExtension);
+		int StopMonitorExtension(String^ l_agentExtension);
 		bool AnswerCall(String^ agentExtension, long callID);
 		bool HoldCall(String^ agentExtension, long callID);
-		bool AgentLogOut(String^ l_agentId, String^ l_agentPassword, String^ l_agentExtension);
+		int AgentLogOut(String^ l_agentId, String^ l_agentPassword, String^ l_agentExtension);
 		bool ResumeCall(String^ agentExtension, long callID);
 		bool DropCall(String^ agentExtension, long callID);
 		bool InitiateTransfer(String^ agentExtension, String^ remoteExtension);

@@ -16,6 +16,9 @@ using AvayaReflector.Configuration;
 using System.IO;
 using System.Xml.XPath;
 using System.Xml;
+using System.Timers;
+using System.Collections.Concurrent;
+using AvayaReflector.CallInformation;
 
 namespace AvayaReflectorService
 {
@@ -31,6 +34,8 @@ namespace AvayaReflectorService
         private ILog reflectorLog;
         private ILog callLog;
 
+        Reflector reflector;
+        private static Timer aTimer;
 
         public ReflectorService()
         {
@@ -42,7 +47,21 @@ namespace AvayaReflectorService
         protected override void OnStart(string[] args)
         {
             ReflectorConfig reflectorConfig = ReflectorConfigFactory.GetConfig<ReflectorConfig>("ReflectorConfig.xml");
-            new Reflector(SetServerSettings(reflectorConfig), reflectorLog, callLog);
+            reflector = new Reflector(SetServerSettings(reflectorConfig), reflectorLog, callLog);
+
+            aTimer = new System.Timers.Timer(5000);
+            aTimer.Elapsed += OnTimedEvent;
+            aTimer.Enabled = true;
+        }
+
+        private void OnTimedEvent(Object source, ElapsedEventArgs e)
+        {
+            ConcurrentBag<Call> callList = reflector.GetCompletedCalls();
+            while (!callList.IsEmpty)
+            {
+                Call call;
+                callList.TryTake(out call);
+            }
         }
 
         public void OnDebug(string[] args)

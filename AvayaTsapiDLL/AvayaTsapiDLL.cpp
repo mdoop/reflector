@@ -413,7 +413,7 @@ void HandleCSTAConfirmation(CSTAEvent_t *cstaEvent)
 		nError = cstaEvent->event.cstaConfirmation.u.universalFailure.error;
 		//FireEvent("CSTA_UNIVERSAL_FAILURE_CONF");
 		//WriteToLogFile(__FILE__, __LINE__, 0, " CSTA_UNIVERSAL_FAILURE_CONF event received.");
-		AvayaTsapiDLL::AvayaTsapiWrapper::cb(cstaEvent->event.cstaConfirmation.invokeID, "CSTA_UNIVERSAL_FAILURE_CONF");
+		//AvayaTsapiDLL::AvayaTsapiWrapper::cb(cstaEvent->event.cstaConfirmation.invokeID, "CSTA_UNIVERSAL_FAILURE_CONF");
 		switch (nError)
 		{
 		case INVALID_CSTA_DEVICE_IDENTIFIER:
@@ -445,6 +445,7 @@ void HandleCSTAConfirmation(CSTAEvent_t *cstaEvent)
 		}
 		default:
 		{
+			AvayaTsapiDLL::AvayaTsapiWrapper::cb(cstaEvent->event.cstaConfirmation.invokeID, "CSTA_UNIVERSAL_FAILURE_CONF");
 			//WriteToLogFile(__FILE__, __LINE__, 0, " Error: CSTA_UNIVERSAL_FAILURE_CONF event received with unknown error code: %d", nError);
 		}
 		}// end of inner switch
@@ -809,7 +810,7 @@ extern "C"
 
 	}
 
-	long AvayaTsapiDLL::AvayaTsapiWrapper::OpenAESStreamConnection(String^ l_ctiServerId, String^ l_ctiUserName, String^ l_ctiPassword)
+	int AvayaTsapiDLL::AvayaTsapiWrapper::OpenAESStreamConnection(String^ l_ctiServerId, String^ l_ctiUserName, String^ l_ctiPassword)
 	{
 		ACSHandle_t             *acsHandle = new ACSHandle_t;
 		InvokeIDType_t          invokeIDType;
@@ -944,31 +945,19 @@ extern "C"
 		return (long)g_nOpenStreamInvokeID;
 	}
 
-	bool AvayaTsapiDLL::AvayaTsapiWrapper::CloseAESStreamConnection(String^ l_ctiServerId, String^ l_ctiUserName, String^ l_ctiPassword)
+	int AvayaTsapiDLL::AvayaTsapiWrapper::CloseAESStreamConnection(String^ l_ctiServerId, String^ l_ctiUserName, String^ l_ctiPassword)
 	{
 		RetCode_t m_nRetCode;
 		if (g_acsHandle != NULL)
 		{
 			//m_nRetCode = acsCloseStream(*g_acsHandle, 0, NULL);
 			m_nRetCode = acsAbortStream(*g_acsHandle, NULL);
-			if (m_nRetCode >= 0)
-			{
-				
-				return TRUE;
-			}
-			else
-			{
-				//SendMessage(WM_SPEVENT, 0, ACS_UNIVERSAL_FAILURE);
-				return FALSE;
-			}
+			return m_nRetCode;
 		}
 		else
 		{
-			return FALSE;
+			return -1;
 		}
-
-		//FireEvent("COOL!");
-		return true;
 	}
 
 	int AvayaTsapiDLL::AvayaTsapiWrapper::AgentLogin(String^ l_agentId, String^ l_agentPassword, String^ l_agentExtension, WorkMode workMode, int reasonCode)
@@ -1051,7 +1040,7 @@ extern "C"
 		return (int)m_nRetCode;
 	}
 
-	bool AvayaTsapiDLL::AvayaTsapiWrapper::AgentLogOut(String^ l_agentId, String^ l_agentPassword, String^ l_agentExtension)
+	int AvayaTsapiDLL::AvayaTsapiWrapper::AgentLogOut(String^ l_agentId, String^ l_agentPassword, String^ l_agentExtension)
 	{
 		bool bResult;
 		DeviceID_t	deviceId;
@@ -1091,17 +1080,14 @@ extern "C"
 				bResult = false;
 			}break;
 			}
-			return false;
-		}
-		else
-		{
-			//m_pCXCtrl->OnSoftPhoneEvent(L"Loggedout");		
+
+			
 		}
 
-		return true;
+		return nRetCode;
 	}
 
-	bool AvayaTsapiDLL::AvayaTsapiWrapper::MonitorExtension(String^ l_agentExtension)
+	int AvayaTsapiDLL::AvayaTsapiWrapper::MonitorExtension(String^ l_agentExtension)
 	{
 		CSTAMonitorFilter_t		m_noFilter;
 		RetCode_t               m_nRetCode;
@@ -1146,7 +1132,8 @@ extern "C"
 				break;
 			}
 			}
-			return false;
+			
+
 		}
 		else
 		{
@@ -1154,18 +1141,16 @@ extern "C"
 			//this->PollForEvents(*g_acsHandle);
 		}
 
-		return true;
+		return m_nRetCode;
 	}
 
-	bool AvayaTsapiDLL::AvayaTsapiWrapper::StopMonitorExtension(String^ l_agentExtension)
+	int AvayaTsapiDLL::AvayaTsapiWrapper::StopMonitorExtension(String^ l_agentExtension)
 	{
 		DeviceID_t monitoredDevice;
 		CSTAMonitorCrossRefID_t crossRefId;
 		sprintf(monitoredDevice, "%s", l_agentExtension);
 
-		cstaMonitorStop(*g_acsHandle, 0, g_lMonitorCrossRefID, NULL);
-			
-		return true;
+		return cstaMonitorStop(*g_acsHandle, 0, g_lMonitorCrossRefID, NULL);
 	}
 
 	bool AvayaTsapiDLL::AvayaTsapiWrapper::AnswerCall(String^ agentExtension, long callID)

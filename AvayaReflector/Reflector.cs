@@ -11,6 +11,8 @@ using AvayaTsapiDLL;
 using AvayaReflector.Configuration;
 using System.Threading;
 using System.Collections.Concurrent;
+using AvayaReflector.AvayaRequests;
+using AvayaReflector.CallInformation;
 
 namespace AvayaReflector
 {
@@ -25,92 +27,140 @@ namespace AvayaReflector
 
         public readonly ILog Log;
         public readonly ILog CallLog;
+        private AvayaConnector avayaConnector;
 
-        public AvayaTsapiWrapper AvayaConnector;
-        ConcurrentDictionary<AvayaRequest, string> AvayaRequestsWaitingForResponse = new ConcurrentDictionary<AvayaRequest, string>();
+        public ConcurrentBag<Call> GetCompletedCalls()
+        {
+            return avayaConnector.CompletedCalls;
+        }
 
-        private AutoResetEvent avayaRequestResponse = new AutoResetEvent(false);
         public Reflector(ReflectorConfig config, ILog mainLog, ILog callLog)
         {
-            this.Log = mainLog;
-            this.CallLog = callLog;
-            AvayaConnector = new AvayaTsapiDLL.AvayaTsapiWrapper();
+            Log = mainLog;
+            CallLog = callLog;
+            avayaConnector = new AvayaConnector();
 
-            AvayaConnector.SetEventCallback(new AvayaTsapiWrapper.CallBackFunction(AvayaEventHandler));
+            OpenStreamRequest openStreamRequest = new OpenStreamRequest(config.ServerName, config.StreamLogin, config.StreamPassword);
+            avayaConnector.SendAndWait(openStreamRequest);
 
-
-           // OpenStream(config.ServerName, config.StreamLogin, config.StreamPassword);
-
-          //  DoAvayaRequest(() => OpenStream(config.ServerName, config.StreamLogin, config.StreamPassword), "open stream");
-
-            DoAvayaRequest(() =>
-                AvayaConnector.OpenAESStreamConnection(config.ServerName, config.StreamLogin, config.StreamPassword),
-                "OPEN STREAM", true);
-
-            DoAvayaRequest(() =>
-                AgentLogin(config.ServerName, config.StreamLogin, config.StreamPassword, AvayaTsapiDLL.WorkMode.WM_MANUAL_IN), 
-                "agent login", false);
-           // DoAvayaRequest(() => AgentLogin(config.ServerName, config.StreamLogin, config.StreamPassword, AvayaTsapiDLL.WorkMode.WM_MANUAL_IN), "agent login");
-            
-           // AvayaConnector.AgentLogin(device.AgentID, device.AgentPassword, device.Extension, AvayaTsapiDLL.WorkMode.WM_MANUAL_IN, 0);
-            
-            int x = 0;
-          //  ReflectorConfig x = new ReflectorConfig();
-           
-           // Serialize(x);
-        }
-
-        public int AgentLogin(string agentID, string agentPass, string extension, AvayaTsapiDLL.WorkMode mode)
-        {
-            return AvayaConnector.AgentLogin(agentID, agentPass, extension, mode, 0);
-        }
-
-        public void DoAvayaRequest(Func<int> methodToRun, string message, bool waitForResponse)
-        {
-            AvayaRequest request = new AvayaRequest
+            if (!openStreamRequest.Result.Success)
             {
-                InvokeID = methodToRun(),
-                WaitForResponse = waitForResponse,
-                Reset = new AutoResetEvent(false)
-            };
+                Log.Error(openStreamRequest.Result.GetResultMessage());
+                Log.Error("Failed to open stream. Aborting.");
+                return;
+            }
 
-
-            AvayaRequestsWaitingForResponse.TryAdd(request, message);
-            if (waitForResponse) request.Reset.WaitOne();
-        }
-
-
-        public int OpenStream(string server, string login, string password)
-        {
-            return AvayaConnector.OpenAESStreamConnection(server, login, password);
-        }
+            Log.Info(openStreamRequest.Result.GetResultMessage());
 
 
 
-        protected void AvayaEventHandler(int invokeID, string message)
-        {
-            var originalRequest = AvayaRequestsWaitingForResponse.FirstOrDefault(x => x.Key.InvokeID == invokeID);
 
-            int key = originalRequest.Key.InvokeID;
-            if (key > 0)
+            if (config.MonitoredDevices.LogoutAgents)
             {
-
-                if (originalRequest.Key.WaitForResponse)
-                {
-                    originalRequest.Key.Reset.Set();
-                }
-   
-                
-              //  AvayaRequestsWaitingForResponse.Remove(originalRequest.Key);
-                string originalMessage = originalRequest.Value;
-                Log.Info(originalMessage + ":" + message);
-                int c = 0;
+                LogoutAgents(config.MonitoredDevices.Items);
             }
 
 
+            if (config.MonitoredDevices.LoginAgents)
+            {
+                WorkMode workMode = GetWorkModeFromString(config.MonitoredDevices.AgentWorkMode);
+                if (workMode != WorkMode.INVALID)
+                {
+                    LoginAgents(config.MonitoredDevices.Items, workMode);
+                }
+                else
+                {
+                    Log.Error("Unable to login agents: invalid workmode specified. Aborting all agent login attempts.");
+                }
+            }
+
+
+
+            foreach(MonitoredDevice device in config.MonitoredDevices.Items)
+            {
+                MonitorExtensionRequest monitorRequest = new MonitorExtensionRequest(device.Extension);
+                avayaConnector.SendAndWait(monitorRequest);
+
+                if (!monitorRequest.Result.Success)
+                {
+                    Log.Error(monitorRequest.Result.GetResultMessage());
+                }
+                else
+                {
+                    Log.Info(monitorRequest.Result.GetResultMessage());
+                }
+            }
+
+
+
+
+            //  ReflectorConfig x = new ReflectorConfig();
+
+            // Serialize(x);
+        }
+
+        public void LoginAgents(List<MonitoredDevice> devices, WorkMode workMode)
+        {
+            foreach (MonitoredDevice device in devices)
+            {
+                AgentLoginRequest loginRequest = new AgentLoginRequest(device.AgentID, device.AgentPassword, device.Extension, workMode);
+                avayaConnector.SendAndWait(loginRequest);
+
+                if (!loginRequest.Result.Success)
+                {
+                    Log.Error(loginRequest.Result.GetResultMessage());
+                }
+                else
+                {
+                    Log.Info(loginRequest.Result.GetResultMessage());
+                }
+            }
         }
 
 
+        public void LogoutAgents(List<MonitoredDevice> devices)
+        {
+            foreach (MonitoredDevice device in devices)
+            {
+                AgentLogoutRequest logoutRequest = new AgentLogoutRequest(device.AgentID, device.AgentPassword, device.Extension);
+                avayaConnector.SendAndWait(logoutRequest);
+
+                if (!logoutRequest.Result.Success)
+                {
+                    Log.Error(logoutRequest.Result.GetResultMessage());
+                }
+                else
+                {
+                    Log.Info(logoutRequest.Result.GetResultMessage());
+                }
+            }
+        }
+
+
+
+        public WorkMode GetWorkModeFromString(string mode)
+        {
+            switch(mode)
+            {
+                case "MANUAL_IN":
+                    return WorkMode.WM_MANUAL_IN;
+
+                case "AUX_WORK":
+                    return WorkMode.WM_AUX_WORK;
+
+                case "AFTCAL_WK":
+                        return WorkMode.WM_AFTCAL_WK;
+
+                case "AUTO_IN":
+                    return WorkMode.WM_AUTO_IN;
+
+                case "NONE":
+                    return WorkMode.WM_NONE;
+
+                default:
+                    return WorkMode.INVALID;
+            }
+        }
 
         public void Serialize(ReflectorConfig list)
         {

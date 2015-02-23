@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ReflectorConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <CallScript enabled="true" scriptName="testScript123" />
-  <MonitoredDevices loginAgentsOnStartup="true">
+  <MonitoredDevices loginAgentsOnStartup="true" logoutAgentsOnStartup="true" agentWorkMode="MANUAL_IN">
     <MonitoredDevice>
-      <Extension>40000</Extension>
+      <Extension>40004</Extension>
       <AgentID>2000</AgentID>
       <AgentPassword>1234</AgentPassword>
-    </MonitoredDevice>
-    <MonitoredDevice>
-      <Extension>1234</Extension>
-      <AgentID>1234</AgentID>
-      <AgentPassword>123</AgentPassword>
-    </MonitoredDevice>
-    <MonitoredDevice>
-      <Extension>1234</Extension>
-      <AgentID>1234</AgentID>
-      <AgentPassword>123</AgentPassword>
     </MonitoredDevice>
   </MonitoredDevices>
 </ReflectorConfig>

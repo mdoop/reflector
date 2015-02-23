@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://iq-services.com/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://iq-services.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://iq-services.com/">
+      <s:element name="AcceptKeyValueList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="myList" type="tns:ArrayOfKeyValue" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfKeyValue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="KeyValue" nillable="true" type="tns:KeyValue" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="KeyValue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AcceptKeyValueListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AcceptKeyValueListResult" type="tns:WsResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="WsResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AcceptKeyValueListSoapIn">
+    <wsdl:part name="parameters" element="tns:AcceptKeyValueList" />
+  </wsdl:message>
+  <wsdl:message name="AcceptKeyValueListSoapOut">
+    <wsdl:part name="parameters" element="tns:AcceptKeyValueListResponse" />
+  </wsdl:message>
+  <wsdl:portType name="VcReflectorWsSoap">
+    <wsdl:operation name="AcceptKeyValueList">
+      <wsdl:input message="tns:AcceptKeyValueListSoapIn" />
+      <wsdl:output message="tns:AcceptKeyValueListSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="VcReflectorWsSoap" type="tns:VcReflectorWsSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AcceptKeyValueList">
+      <soap:operation soapAction="http://iq-services.com/AcceptKeyValueList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="VcReflectorWsSoap12" type="tns:VcReflectorWsSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AcceptKeyValueList">
+      <soap12:operation soapAction="http://iq-services.com/AcceptKeyValueList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="VcReflectorWs">
+    <wsdl:port name="VcReflectorWsSoap" binding="tns:VcReflectorWsSoap">
+      <soap:address location="https://monitorcontrol.net/VCReflector/VcReflectorWs.asmx" />
+    </wsdl:port>
+    <wsdl:port name="VcReflectorWsSoap12" binding="tns:VcReflectorWsSoap12">
+      <soap12:address location="https://monitorcontrol.net/VCReflector/VcReflectorWs.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

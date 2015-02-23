@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Xml.Serialization;
+
+namespace AvayaReflector.CallInformation
+{
+
+    [Serializable]
+    public enum CallCommandType
+    {
+        Answer,
+        Hold,
+        Resume,
+        Transfer,
+        Conference,
+        Wait,
+        Drop
+    }
+}

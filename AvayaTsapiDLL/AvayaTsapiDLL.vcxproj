@@ -20,7 +20,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CLRSupport>true</CLRSupport>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Static</UseOfMfc>
@@ -44,8 +44,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Program Files\Avaya\CVCT\SDKs\TSAPI\Hdrs;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files\Avaya\CVCT\SDKs\TSAPI\Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\DDV\dev\TSAPI_SDK\Hdrs;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\DDV\dev\TSAPI_SDK\Libs;$(LibraryPath)</LibraryPath>
     <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
     <EnableManagedIncrementalBuild>false</EnableManagedIncrementalBuild>
     <GenerateManifest>true</GenerateManifest>
@@ -125,15 +125,11 @@
     <Image Include="app.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\..\..\..\..\..\..\Program Files\Avaya\CVCT\SDKs\TSAPI\Libs\ATTPRV32.lib">
-      <FileType>Document</FileType>
-    </Library>
-    <Library Include="..\..\..\..\..\..\..\Program Files\Avaya\CVCT\SDKs\TSAPI\Libs\Csta32.lib">
-      <FileType>Document</FileType>
-    </Library>
+    <None Include="AvayaTsapiDLL.def" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="AvayaTsapiDLL.def" />
+    <Library Include="..\lib\ATTPRV32.lib" />
+    <Library Include="..\lib\Csta32.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

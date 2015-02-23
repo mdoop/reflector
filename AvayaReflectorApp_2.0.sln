@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvayaReflector", "AvayaReflector\AvayaReflector.csproj", "{E1350AFD-30B5-44E3-8E09-CFB18A03826A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvayaReflectorService", "AvayaReflectorService\AvayaReflectorService.csproj", "{F3A04041-547A-45A9-BEBA-76FCEE9F9AF6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AvayaTsapiDLL", "..\..\..\Project Code\IQSProject\AVWrapper\AvayaTsapiDLL\AvayaTsapiDLL.vcxproj", "{611286B7-AB97-42F4-9F9B-DA0378829665}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AvayaTsapiDLL", "AvayaTsapiDLL\AvayaTsapiDLL.vcxproj", "{611286B7-AB97-42F4-9F9B-DA0378829665}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +38,7 @@ Global
 		{F3A04041-547A-45A9-BEBA-76FCEE9F9AF6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F3A04041-547A-45A9-BEBA-76FCEE9F9AF6}.Release|Win32.ActiveCfg = Release|Any CPU
 		{611286B7-AB97-42F4-9F9B-DA0378829665}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{611286B7-AB97-42F4-9F9B-DA0378829665}.Debug|Any CPU.Build.0 = Debug|Win32
 		{611286B7-AB97-42F4-9F9B-DA0378829665}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{611286B7-AB97-42F4-9F9B-DA0378829665}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{611286B7-AB97-42F4-9F9B-DA0378829665}.Debug|Win32.ActiveCfg = Debug|Win32

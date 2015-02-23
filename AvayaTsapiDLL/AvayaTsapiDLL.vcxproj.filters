@@ -59,16 +59,16 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\..\..\..\..\..\..\Program Files\Avaya\CVCT\SDKs\TSAPI\Libs\Csta32.lib">
-      <Filter>Lib</Filter>
-    </Library>
-    <Library Include="..\..\..\..\..\..\..\Program Files\Avaya\CVCT\SDKs\TSAPI\Libs\ATTPRV32.lib">
-      <Filter>Lib</Filter>
-    </Library>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="AvayaTsapiDLL.def">
       <Filter>Source Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\lib\ATTPRV32.lib">
+      <Filter>Lib</Filter>
+    </Library>
+    <Library Include="..\lib\Csta32.lib">
+      <Filter>Lib</Filter>
+    </Library>
   </ItemGroup>
 </Project>
